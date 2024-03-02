@@ -1,7 +1,7 @@
 from typing import Tuple
 
 class Canvas:
-    def __init__(self, width:int, height:int) -> None:
+    def __init__(self, width:int, height:int, back_color:Tuple[int, int, int] = (255, 255, 255)) -> None:
         self.width = int(width)
         self.height = int(height)
         self.half_width = self.width // 2
@@ -10,6 +10,9 @@ class Canvas:
         self.reds = bytearray(self.pixel_number)
         self.greens = bytearray(self.pixel_number)
         self.blues = bytearray(self.pixel_number)
+        self.reds[:] = chr(back_color[0]).encode() * self.pixel_number
+        self.greens[:] = chr(back_color[1]).encode() * self.pixel_number
+        self.blues[:] = chr(back_color[2]).encode() * self.pixel_number
     def set_color(self, x:int, y:int, color:Tuple[int, int, int]) -> None:
         wx = self.half_width + x
         if wx < 0 or wx >= self.width:
@@ -35,13 +38,16 @@ class Canvas:
             pen.pendown()
             for x in range(-self.half_width, self.half_width):
                 print(x, y)
-                pen.color((1,0,0))
+                pen.color((self.reds[index]/255.0, self.greens[index]/255.0, self.blues[index]/255.0))
                 pen.forward(1)
                 index += 1
             pen.penup() # return
         turtle.done()
+    def draw_tk(self) -> None:
+        111
 
         
 if __name__ == "__main__":
-    canvas = Canvas(400, 300)
+    canvas = Canvas(400, 300, (0, 255, 0))
+    canvas.set_color(-200, 150, (255, 0, 255))
     canvas.draw_turtle()
