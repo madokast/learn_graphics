@@ -37,7 +37,7 @@ class Canvas:
             pen.goto(-self.half_width, y)
             pen.pendown()
             for x in range(-self.half_width, self.half_width):
-                print(x, y)
+                # print(x, y)
                 pen.color((self.reds[index]/255.0, self.greens[index]/255.0, self.blues[index]/255.0))
                 pen.forward(1)
                 index += 1
